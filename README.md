@@ -6,6 +6,7 @@ If you use yahoo's API to get stock prices of TWSE (e.g. quantmod), you probably
 
 GETTING DATA
 > source("GetStockPrice.R")
+
 > get_stock_price(uid="0050", start_date="201701")
 
 
