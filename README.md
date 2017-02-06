@@ -1,13 +1,22 @@
 # 上市上櫃股票每日收盤資訊
-Taiwan Stock Exchange Stock Price API
+Taiwan Stock Exchange / OTC API
 
-Data Source 
-證交所上市公司每日收盤成交資料 http://www.tse.com.tw/ch/trading/exchange/STOCK_DAY/STOCK_DAYMAIN.php
+Data Sources
 
-START 
+台灣證券交易所 http://www.tse.com.tw/ch/index.php
+櫃買中心 http://www.tpex.org.tw/web/index.php?l=zh-tw
+Quantmod https://cran.r-project.org/web/packages/quantmod/index.html
+
+QUICK START 
 > source("GetStockPrice.R")
 
 GETTING DATA 抓取歷史資料
-> get_stock_price(uid="0050", start_date="201701")
+> stock = get_stock_price(uid="0050.TW", start_date="201701")
 
+UID Format:
+證交所股票加.TW, e.g. "2330.TW"
+櫃買中心加.TWO, e.g. "1259.TWO"
+美股不用加, e.g. "UA"
 
+OUTPUT FILES 輸出資料
+> output_file(stock, "stockinfo.csv")
