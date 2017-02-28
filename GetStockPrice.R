@@ -5,8 +5,6 @@ library('stringr')
 library('quantmod')
 library('jsonlite')  
 
-# http://lovecoding.logdown.com/posts/257928-use-yahoo-api-to-obtain-historical-stock-price-data
-
 get_stock = function(uid, start_date = "20100101")
 {
   if(length(grep(".TWO", uid))>0)
@@ -45,7 +43,7 @@ get_stock = function(uid, start_date = "20100101")
     for(i in c("Open","High","Low","Close","Volume"))
       stock.all[,i] = as.numeric(gsub("[,]","",stock.all[,i]))
     
-    stock.all$TDate = gsub("¡¯", "", stock.all$TDate)
+    stock.all$TDate = gsub("ï¼Š", "", stock.all$TDate)
     stock.all$TDate = sapply(1:nrow(stock.all), function(x){
       temp = str_split(stock.all$TDate[x],"/")[[1]]
       paste(as.numeric(temp[1])+1911, temp[2], temp[3],sep="-") 
@@ -85,7 +83,7 @@ get_stock = function(uid, start_date = "20100101")
         
         result = htmlParse(result, encoding = 'utf8')
         dd = xpathSApply(result, '//tbody/tr/td', xmlValue)
-        if(length(dd)!=1 && dd!="¬dµL¸ê®Æ¡I")
+        if(length(dd)!=1 && dd!="æŸ¥ç„¡è³‡æ–™ï¼")
         {
           stock = matrix(dd, ncol = 9, byrow = T)
           stock = data.frame(stock)
@@ -94,7 +92,7 @@ get_stock = function(uid, start_date = "20100101")
       }
     }
     names(stock.all) = c("TDate","Volume","Turnover_value","Open","High","Low","Close","Change","Turnover_num")
-    # Volume=¦¨¥æªÑ¼Æ;Turnover_value=¦¨¥æª÷ÃB;Turnover_num=¦¨¥æµ§¼Æ
+    # Volume=æˆäº¤è‚¡æ•¸;Turnover_value=æˆäº¤é‡‘é¡;Turnover_num=æˆäº¤ç­†æ•¸
     stock.all = stock.all[,c("TDate","Open","High","Low","Close","Volume")]
     
     for(i in c("Open","High","Low","Close","Volume"))
