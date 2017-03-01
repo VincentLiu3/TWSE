@@ -1,8 +1,7 @@
-# 上市上櫃股票每日收盤資訊
+# 證交所資料API
 Taiwan Stock Exchange / OTC API
 
 #### Data Sources
-
 [台灣證券交易所](http://www.tse.com.tw/ch/index.php)
 [櫃買中心](http://www.tpex.org.tw/web/index.php?l=zh-tw)
 [Quantmod](https://cran.r-project.org/web/packages/quantmod/index.html)
@@ -14,9 +13,17 @@ Taiwan Stock Exchange / OTC API
 > stock = get_stock_price(uid="0050.TW", start_date="201701")
 
 *UID Format:*
-證交所股票加.TW, e.g. "2330.TW"
-櫃買中心加.TWO, e.g. "1259.TWO"
-美股不用加, e.g. "UA"
+證交所股票加.TW, e.g. "2330.TW".  
+櫃買中心加.TWO, e.g. "1259.TWO".  
+美股不用加, e.g. "UA".  
 
 #### OUTPUT FILES 輸出資料
-> output_file(stock, "stockinfo.csv")
+> output_file(stock, *file_name*)
+
+#### GETTING QUOTE 抓取及時行情
+> ex_ch = get_url("0050.tw", "00632R.tw", "0056.tw")
+> get_stock_quote(ex_ch)
+
+*UID Format:*
+證交所股票加.TW, e.g. "2330.tw".  
+櫃買中心加.TWO, e.g. "1259.otc".  
