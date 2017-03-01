@@ -12,7 +12,7 @@ Taiwan Stock Exchange / OTC API
 #### GETTING DATA 抓取歷史資料
 > stock = get_stock_price(uid="0050.TW", start_date="201701")
 
-*UID Format:*
+*UID Format:*  
 證交所股票加.TW, e.g. "2330.TW".  
 櫃買中心加.TWO, e.g. "1259.TWO".  
 美股不用加, e.g. "UA".  
@@ -21,9 +21,9 @@ Taiwan Stock Exchange / OTC API
 > output_file(stock, *file_name*)
 
 #### GETTING QUOTE 抓取及時行情
-> ex_ch = get_url("0050.tw", "00632R.tw", "0056.tw")
+> ex_ch = get_url("0050.tw", "00632R.tw", "0056.tw")  
 > get_stock_quote(ex_ch)
 
-*UID Format:*
+*UID Format:*  
 證交所股票加.TW, e.g. "2330.tw".  
 櫃買中心加.TWO, e.g. "1259.otc".  
