@@ -122,3 +122,32 @@ output_file = function(stock, file_path)
 {
   write.zoo(stock, file_path, sep = ",")
 }
+
+# t = as.character(round(as.numeric(as.POSIXct(Sys.time())) * 1000,0))
+# req = GET(paste("http://mis.twse.com.tw/stock/api/getStockInfo.jsp?_=", t, "&ex_ch=tse_t00.tw", sep = ""), encoding='utf8')
+# json_file = fromJSON(content(req, 'text', encoding = 'utf8'))
+# t = json_file$msgArray$tlong
+
+get_url = function(...)
+{
+  paste("tse_", c(...), "|", sep="", collapse = "")
+}
+
+get_stock_quote = function(ex_ch)
+{
+  t = as.character(round(as.numeric(as.POSIXct(Sys.time())) * 1000,0))
+  req1 = GET(paste("http://mis.twse.com.tw/stock/api/getStockInfo.jsp?_=", t, "&ex_ch=tse_t00.tw", sep = ""), encoding='utf8')
+  req2 = GET(paste("http://mis.twse.com.tw/stock/data/futures_side.txt?_=", t, sep = ""), encoding='utf8')
+  req3 = GET(paste("http://mis.twse.com.tw/stock/api/getStockInfo.jsp?_=", t, "&ex_ch=", ex_ch, sep = ""), encoding='utf8')
+  
+  json_file = fromJSON(content(req3, 'text', encoding = 'utf8'))
+  json_file = json_file$msgArray
+  json_file = json_file[,c("t","ch","z", "o", "l", "h", "v")]
+  names(json_file) = c("Time", "Tick", "Last", "Open", "Low", "High", "Volume")
+  
+  json_file$Time = strptime(json_file$Time, "%H:%M:%S") 
+  for(i in c("Last", "Open", "Low", "High", "Volume"))
+    json_file[,i] = as.numeric(json_file[,i])
+  
+  return(json_file)
+}
