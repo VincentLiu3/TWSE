@@ -11,9 +11,9 @@ get_stock = function(uid, start_date = "20100101")
   {
     uid = gsub(".TWO", "", uid)
     
-    start_year = as.numeric(substr(start_date, 1, 4)) - 1911
+    start_year = as.numeric(substr(start_date, 1, 4))
     start_month = as.numeric(substr(start_date, 5, 6))
-    end_year = as.numeric(format(Sys.Date(), "%Y")) - 1911
+    end_year = as.numeric(format(Sys.Date(), "%Y"))
     end_month = as.numeric(format(Sys.Date(), "%m"))
     
     stock.all = NULL
@@ -28,9 +28,9 @@ get_stock = function(uid, start_date = "20100101")
       
       for(month in month.list)
       {
-        url = paste("http://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=zh-tw&d=",year,"/",month,"&stkno=",uid,"&_=1486100183545", sep="")
-        req = GET(url, encoding='utf8')
-        json_file = content(req, 'text', encoding = 'utf8')
+        url = paste("http://www.tpex.org.tw/web/stock/aftertrading/daily_trading_info/st43_result.php?l=en-us&d=",year,"/",month,"&stkno=",uid,"&_=1486100183545", sep="")
+        req = GET(url)
+        json_file = content(req, 'text')
         json_file = fromJSON(json_file)
         stock = data.frame(json_file$aaData) 
         if(ncol(stock) == 9)
